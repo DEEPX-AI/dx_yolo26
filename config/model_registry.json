@@ -127,7 +127,7 @@
   },
   {
     "model_name": "yolo26n",
-    "dxnn_file": "yolo26-n_640x640.dxnn",
+    "dxnn_file": "yolo26-n-od_640x640.dxnn",
     "original_name": "yolo26n",
     "csv_task": "OD",
     "add_model_task": "object_detection",
@@ -143,7 +143,7 @@
   },
   {
     "model_name": "yolo26n_cls",
-    "dxnn_file": "yolo26-n_224x224.dxnn",
+    "dxnn_file": "yolo26-n-cls_224x224.dxnn",
     "original_name": "yolo26n-cls",
     "csv_task": "IC",
     "add_model_task": "classification",
