@@ -83,6 +83,10 @@ public:
      */
     virtual std::string getTaskType() const = 0;
 
+    // Model this application runs when -m is omitted, relative to the working
+    // directory (e.g. "assets/models/yolo26-n-od_640x640.dxnn").
+    virtual std::string getDefaultModel() const = 0;
+
     /**
      * @brief Load configuration from an external JSON file
      * @param config Parsed ModelConfig instance
@@ -110,6 +114,10 @@ public:
     virtual std::string getModelName() const = 0;
     virtual std::string getTaskType() const = 0;
 
+    // Model this application runs when -m is omitted, relative to the working
+    // directory (e.g. "assets/models/yolo26-n-od_640x640.dxnn").
+    virtual std::string getDefaultModel() const = 0;
+
     virtual void loadConfig(const ModelConfig& /*config*/) { /* No-op: subclasses override to apply runtime parameters */ }
 };
 
@@ -129,6 +137,10 @@ public:
 
     virtual std::string getModelName() const = 0;
     virtual std::string getTaskType() const = 0;
+
+    // Model this application runs when -m is omitted, relative to the working
+    // directory (e.g. "assets/models/yolo26-n-od_640x640.dxnn").
+    virtual std::string getDefaultModel() const = 0;
 
     virtual void loadConfig(const ModelConfig& /*config*/) { /* No-op: subclasses override to apply runtime parameters */ }
 };
@@ -150,6 +162,10 @@ public:
     virtual std::string getModelName() const = 0;
     virtual std::string getTaskType() const = 0;
 
+    // Model this application runs when -m is omitted, relative to the working
+    // directory (e.g. "assets/models/yolo26-n-od_640x640.dxnn").
+    virtual std::string getDefaultModel() const = 0;
+
     virtual void loadConfig(const ModelConfig& /*config*/) { /* No-op: subclasses override to apply runtime parameters */ }
 };
 
@@ -169,6 +185,10 @@ public:
 
     virtual std::string getModelName() const = 0;
     virtual std::string getTaskType() const = 0;
+
+    // Model this application runs when -m is omitted, relative to the working
+    // directory (e.g. "assets/models/yolo26-n-od_640x640.dxnn").
+    virtual std::string getDefaultModel() const = 0;
 
     virtual void loadConfig(const ModelConfig& /*config*/) { /* No-op: subclasses override to apply runtime parameters */ }
 

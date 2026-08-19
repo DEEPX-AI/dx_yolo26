@@ -47,7 +47,7 @@ cmake --build build -j
 | :--- | :--- | :--- |
 | `DXRT_INSTALLED_DIR` | `/usr/local` | DXRT install prefix (`lib/libdxrt.so`, `include/dxrt/`) |
 | `DXYOLO26_VARIANTS` | `both` | Applications to build: `both`, `sync` or `async` |
-| `DXYOLO26_DATA_DIR` | source tree | Directory the applications read `config/model_registry.json` from at run time |
+| `DXYOLO26_DATA_DIR` | source tree | Installed data directory the applications point at in their error hints |
 | `DXYOLO26_INSTALL_SAMPLES` | `ON` | Install `sample/img/` (about 12 MB) |
 
 ## Run
@@ -69,19 +69,18 @@ works:
 
 ```bash
 cd /usr/share/dx_yolo26
-yolo26n_async -m /path/to/yolo26-n_640x640.dxnn
+yolo26n_async -m /path/to/yolo26-n-od_640x640.dxnn
 ```
 
-`-m` may be omitted, in which case the application looks its default `.dxnn` name up
-in `${DXYOLO26_DATA_DIR}/config/model_registry.json` and expects the file under
-`assets/models/`. The `.dxnn` models are not part of this repository - get them from
-[DX-ModelZoo](https://developer.deepx.ai/modelzoo/).
+`-m` may be omitted: every application declares its own default model (see
+`getDefaultModel()` in its factory) and looks for it under `assets/models/` relative
+to the working directory. The `.dxnn` models are not part of this repository - get
+them from [DX-ModelZoo](https://developer.deepx.ai/modelzoo/).
 
 ## Install layout
 
 ```
 <prefix>/bin/yolo26n_async, yolo26n_cls_async, ...
-<prefix>/share/dx_yolo26/config/model_registry.json
 <prefix>/share/dx_yolo26/examples/<category>/<model>/config.json
 <prefix>/share/dx_yolo26/sample/img/*.jpg, *.png
 ```
@@ -94,16 +93,16 @@ in `${DXYOLO26_DATA_DIR}/config/model_registry.json` and expects the file under
 IMAGE_INSTALL:append = " dx-yolo26 dx-yolo26-samples"
 ```
 
-`dx-yolo26` holds the applications with their model registry and postprocess
-parameters, `dx-yolo26-samples` the sample images. The recipe builds the async
+`dx-yolo26` holds the applications with their postprocess parameters,
+`dx-yolo26-samples` the sample images. The recipe builds the async
 variants only and passes `-DDXYOLO26_DATA_DIR=${datadir}/dx_yolo26`.
 
 ## Adding another YOLO26 variant
 
 CMake discovers applications from the directory layout: drop
 `src/cpp_example/<category>/<model>/{<model>_sync.cpp,<model>_async.cpp,factory/<model>_factory.hpp}`
-in place, add the model to `config/model_registry.json`, and it is built with no
-build-file change.
+in place - the factory declares its own default model through `getDefaultModel()` -
+and it is built with no build-file change.
 
 ## Provenance
 

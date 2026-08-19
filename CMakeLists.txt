@@ -17,12 +17,12 @@ include(GNUInstallDirs)
 set(DXYOLO26_VARIANTS "both" CACHE STRING "Applications to build: both | sync | async")
 set_property(CACHE DXYOLO26_VARIANTS PROPERTY STRINGS both sync async)
 
-# Baked into the applications as PROJECT_ROOT_DIR. It is the directory the
-# applications read config/model_registry.json from at run time, so it has to be
-# the *installed* data directory for a packaged build (the Yocto recipe passes
-# ${datadir}/dx_yolo26). The default keeps an in-tree build runnable as is.
+# Baked into the applications as PROJECT_ROOT_DIR: the installed data directory,
+# which the error hints point at. For a packaged build it has to be the on-target
+# path (the Yocto recipe passes ${datadir}/dx_yolo26); the default keeps an
+# in-tree build runnable as is.
 set(DXYOLO26_DATA_DIR "${PROJECT_ROOT}" CACHE PATH
-    "Run-time data directory holding config/model_registry.json")
+    "Installed run-time data directory")
 
 set(DXRT_INSTALLED_DIR "/usr/local" CACHE PATH "DXRT (DeepX Runtime) install prefix")
 
@@ -61,11 +61,8 @@ add_subdirectory(src/cpp_example)
 # =============================================================================
 # Run-time data
 # =============================================================================
-# model_registry.json resolves an application's default .dxnn name when -m is
-# omitted; the per-model config.json files carry the postprocess thresholds.
-install(FILES config/model_registry.json
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/config)
-
+# The per-model config.json files carry the postprocess thresholds; each
+# application's default model is declared by its factory, not by a data file.
 file(GLOB_RECURSE _MODEL_CONFIGS RELATIVE ${CMAKE_SOURCE_DIR}/src/cpp_example
      ${CMAKE_SOURCE_DIR}/src/cpp_example/*/*/config.json)
 foreach(_CFG ${_MODEL_CONFIGS})

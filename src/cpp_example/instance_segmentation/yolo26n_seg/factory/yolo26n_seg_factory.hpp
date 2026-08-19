@@ -47,6 +47,9 @@ public:
 
     std::string getModelName() const override { return "Yolo26n_seg"; }
     std::string getTaskType() const override { return "instance_segmentation"; }
+    std::string getDefaultModel() const override {
+        return "assets/models/yolo26-n-seg_640x640.dxnn";
+    }
 
 private:
     float score_threshold_;

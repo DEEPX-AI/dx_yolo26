@@ -37,6 +37,9 @@ public:
 
     std::string getModelName() const override { return "YOLO26n-Depth"; }
     std::string getTaskType() const override { return "depth_estimation"; }
+    std::string getDefaultModel() const override {
+        return "assets/models/yolo26-depth-n_768x768.dxnn";
+    }
 
     // YOLO26-Depth expects float32 input, YOLO-normalized (pixel/255 only, NO
     // ImageNet mean/std) — matching the INT8 calibration domain. apply_mean_std

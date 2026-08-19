@@ -72,7 +72,7 @@ public:
             args.imageFilePath = dxapp::getDefaultSampleImage(factory_->getTaskType());
             std::cout << "[DXAPP] [INFO] No input specified. Using default sample: " << args.imageFilePath << std::endl;
         }
-        dxapp::resolveAndValidateModel(args.modelPath, argv[0]);
+        dxapp::resolveAndValidateModel(args.modelPath, factory_->getDefaultModel());
         validateArguments(args);
 
         std::vector<std::string> imageFiles;

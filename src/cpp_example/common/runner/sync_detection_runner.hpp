@@ -182,7 +182,7 @@ public:
         }
         // Resolve/validate model (SDKREQ-529): -m omitted → example default (auto-dl);
         // -m given but missing → immediate error (no auto-download).
-        dxapp::resolveAndValidateModel(args.modelPath, argv[0]);
+        dxapp::resolveAndValidateModel(args.modelPath, factory_->getDefaultModel());
         validateArguments(args);
 
         // Handle image file or directory

@@ -49,6 +49,9 @@ public:
 
     std::string getModelName() const override { return "Yolo26n"; }
     std::string getTaskType() const override { return "object_detection"; }
+    std::string getDefaultModel() const override {
+        return "assets/models/yolo26-n-od_640x640.dxnn";
+    }
 
 private:
     float score_threshold_;

@@ -39,6 +39,9 @@ public:
 
     std::string getModelName() const override { return "Yolo26n_cls"; }
     std::string getTaskType() const override { return "classification"; }
+    std::string getDefaultModel() const override {
+        return "assets/models/yolo26-n-cls_224x224.dxnn";
+    }
 
 private:
     int num_classes_;

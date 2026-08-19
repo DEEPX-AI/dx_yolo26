@@ -47,6 +47,9 @@ public:
 
     std::string getModelName() const override { return "Yolo26n_pose"; }
     std::string getTaskType() const override { return "pose_estimation"; }
+    std::string getDefaultModel() const override {
+        return "assets/models/yolo26-n-pose_640x640.dxnn";
+    }
 
 private:
     float score_threshold_;
