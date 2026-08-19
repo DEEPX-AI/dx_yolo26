@@ -1,7 +1,8 @@
 # dx_yolo26
 
 YOLO26 application package for the DEEPX M1 NPU. Five C++ applications built on top
-of DXRT (DeepX Runtime), plus the YOLO26 postprocessing shared library.
+of DXRT (DeepX Runtime). The YOLO26 postprocessing is compiled into the
+applications - no shared library is produced.
 
 | Application | Task | Source directory | Default model |
 | :--- | :--- | :--- | :--- |
@@ -38,7 +39,6 @@ Direct CMake use, with the options this project adds:
 cmake -S . -B build -G Ninja \
     -DDXRT_INSTALLED_DIR=/usr/local \
     -DDXYOLO26_VARIANTS=async \
-    -DDXYOLO26_WITH_SHAREDLIB=ON \
     -DDXYOLO26_DATA_DIR=/usr/share/dx_yolo26
 cmake --build build -j
 ```
@@ -47,7 +47,6 @@ cmake --build build -j
 | :--- | :--- | :--- |
 | `DXRT_INSTALLED_DIR` | `/usr/local` | DXRT install prefix (`lib/libdxrt.so`, `include/dxrt/`) |
 | `DXYOLO26_VARIANTS` | `both` | Applications to build: `both`, `sync` or `async` |
-| `DXYOLO26_WITH_SHAREDLIB` | `ON` | Build `libdxapp_yolov26_postprocess.so` |
 | `DXYOLO26_DATA_DIR` | source tree | Directory the applications read `config/model_registry.json` from at run time |
 | `DXYOLO26_INSTALL_SAMPLES` | `ON` | Install `sample/img/` (about 12 MB) |
 
@@ -82,8 +81,6 @@ in `${DXYOLO26_DATA_DIR}/config/model_registry.json` and expects the file under
 
 ```
 <prefix>/bin/yolo26n_async, yolo26n_cls_async, ...
-<prefix>/lib/libdxapp_yolov26_postprocess.so
-<prefix>/include/dx_yolo26/{yolov26_postprocess.h,common_util.hpp,common_util_inline.hpp}
 <prefix>/share/dx_yolo26/config/model_registry.json
 <prefix>/share/dx_yolo26/examples/<category>/<model>/config.json
 <prefix>/share/dx_yolo26/sample/img/*.jpg, *.png
@@ -94,15 +91,12 @@ in `${DXYOLO26_DATA_DIR}/config/model_registry.json` and expects the file under
 `meta-deepx-m1` packages this repository as `dx-yolo26`:
 
 ```
-IMAGE_INSTALL:append = " dx-yolo26-apps dx-yolo26-samples"
+IMAGE_INSTALL:append = " dx-yolo26 dx-yolo26-samples"
 ```
 
-`dx-yolo26-apps` holds the applications with their model registry and postprocess
-parameters, `dx-yolo26-samples` the sample images. `dx-yolo26` is the postprocess
-library and stays empty unless the recipe is built with
-`DXYOLO26_WITH_SHAREDLIB = "True"` - nothing in the image links it by default. The
-recipe builds the async variants only and passes
-`-DDXYOLO26_DATA_DIR=${datadir}/dx_yolo26`.
+`dx-yolo26` holds the applications with their model registry and postprocess
+parameters, `dx-yolo26-samples` the sample images. The recipe builds the async
+variants only and passes `-DDXYOLO26_DATA_DIR=${datadir}/dx_yolo26`.
 
 ## Adding another YOLO26 variant
 
@@ -119,6 +113,3 @@ own: it is not a fork and is not kept in sync with it. The shared
 runner/processor/visualizer framework under `src/cpp_example/common/` carries only
 what the five applications need - code for other model families and other tasks is
 not part of this package.
-
-The postprocess library keeps the output name `libdxapp_yolov26_postprocess.so`, so
-consumers that already load it (dx_stream pipelines, python bindings) work unchanged.

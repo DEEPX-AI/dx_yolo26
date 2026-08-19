@@ -17,8 +17,6 @@ include(GNUInstallDirs)
 set(DXYOLO26_VARIANTS "both" CACHE STRING "Applications to build: both | sync | async")
 set_property(CACHE DXYOLO26_VARIANTS PROPERTY STRINGS both sync async)
 
-option(DXYOLO26_WITH_SHAREDLIB "Build the yolov26 postprocess shared library" ON)
-
 # Baked into the applications as PROJECT_ROOT_DIR. It is the directory the
 # applications read config/model_registry.json from at run time, so it has to be
 # the *installed* data directory for a packaged build (the Yocto recipe passes
@@ -59,9 +57,6 @@ endif()
 add_compile_options(-Wall -Wextra -O3 -fPIC)
 
 add_subdirectory(src/cpp_example)
-if(DXYOLO26_WITH_SHAREDLIB)
-    add_subdirectory(src/postprocess)
-endif()
 
 # =============================================================================
 # Run-time data
@@ -96,6 +91,5 @@ message(STATUS "  dxrt library        : ${DXRT_LIBRARY}")
 message(STATUS "  dxrt headers        : ${DXRT_INCLUDE_DIR}")
 message(STATUS "  OpenCV              : ${OpenCV_VERSION}")
 message(STATUS "  variants            : ${DXYOLO26_VARIANTS}")
-message(STATUS "  postprocess library : ${DXYOLO26_WITH_SHAREDLIB}")
 message(STATUS "  run-time data dir   : ${DXYOLO26_DATA_DIR}")
 message(STATUS "  install prefix      : ${CMAKE_INSTALL_PREFIX}")
