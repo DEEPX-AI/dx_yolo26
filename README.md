@@ -6,11 +6,11 @@ applications - no shared library is produced.
 
 | Application | Task | Source directory | Default model |
 | :--- | :--- | :--- | :--- |
-| `yolo26n` | Object detection | `src/cpp_example/object_detection/yolo26n` | `yolo26-n_640x640.dxnn` |
-| `yolo26n_cls` | Classification | `src/cpp_example/classification/yolo26n_cls` | `yolo26-n_224x224.dxnn` |
+| `yolo26n` | Object detection | `src/cpp_example/object_detection/yolo26n` | `yolo26-n-od_640x640.dxnn` |
+| `yolo26n_cls` | Classification | `src/cpp_example/classification/yolo26n_cls` | `yolo26-n-cls_224x224.dxnn` |
 | `yolo26n_pose` | Pose estimation | `src/cpp_example/pose_estimation/yolo26n_pose` | `yolo26-n-pose_640x640.dxnn` |
 | `yolo26n_seg` | Instance segmentation | `src/cpp_example/instance_segmentation/yolo26n_seg` | `yolo26-n-seg_640x640.dxnn` |
-| `yolo26n_depth` | Depth estimation | `src/cpp_example/depth_estimation/yolo26n_depth` | `yolo26n-depth_640x640.dxnn` |
+| `yolo26n_depth` | Depth estimation | `src/cpp_example/depth_estimation/yolo26n_depth` | `yolo26-depth-n_768x768.dxnn` |
 
 Each application is built in two runner variants: `<name>_sync` and `<name>_async`.
 
@@ -48,13 +48,13 @@ cmake --build build -j
 | `DXRT_INSTALLED_DIR` | `/usr/local` | DXRT install prefix (`lib/libdxrt.so`, `include/dxrt/`) |
 | `DXYOLO26_VARIANTS` | `both` | Applications to build: `both`, `sync` or `async` |
 | `DXYOLO26_DATA_DIR` | source tree | Installed data directory the applications point at in their error hints |
-| `DXYOLO26_INSTALL_SAMPLES` | `ON` | Install `sample/img/` (about 12 MB) |
+| `DXYOLO26_INSTALL_SAMPLES` | `ON` | Install `sample/img/` (about 1 MB) |
 
 ## Run
 
 ```bash
 # explicit model, video input
-yolo26n_async -m yolo26-n_640x640.dxnn -v input.mp4
+yolo26n_async -m yolo26-n-od_640x640.dxnn -v input.mp4
 
 # image directory, no display, postprocess thresholds from a config file
 yolo26n_seg_sync -m yolo26-n-seg_640x640.dxnn -i ./images --no-display \
