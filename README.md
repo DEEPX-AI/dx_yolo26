@@ -113,19 +113,12 @@ build-file change.
 
 ## Provenance
 
-Extracted from [dx_app](https://github.com/DEEPX-AI/dx_app) v3.2.1. The
-`yolo26n_depth` application comes from the dx_app `feat/yolo26n-depth` branch,
-which had not been merged into dx_app `main` at the time of extraction. The
-postprocess library keeps the dx_app output name
-`libdxapp_yolov26_postprocess.so` so existing consumers (dx_stream pipelines,
-python bindings) work unchanged.
+Part of the source code originates from
+[dx_app](https://github.com/DEEPX-AI/dx_app), but this package is maintained on its
+own: it is not a fork and is not kept in sync with it. The shared
+runner/processor/visualizer framework under `src/cpp_example/common/` carries only
+what the five applications need - code for other model families and other tasks is
+not part of this package.
 
-The shared runner/processor/visualizer framework under `src/cpp_example/common/` is
-reduced to what these six applications actually reach. Everything belonging to other
-model families was dropped: the anchor-based YOLO (v3/v4/v5/v6/v7/X) and PPU
-detectors, the SCRFD/YOLOv5-Face face detectors, the anchor pose and semantic
-segmentation postprocessors, the YOLOv8-v12 wrappers, and the result types,
-serializers and drawing helpers for tasks this package does not ship (face,
-embedding, face alignment, hand landmark, restoration, 3D detection, semantic
-segmentation). Re-syncing a framework change from dx_app therefore needs a manual
-port rather than a straight file copy.
+The postprocess library keeps the output name `libdxapp_yolov26_postprocess.so`, so
+consumers that already load it (dx_stream pipelines, python bindings) work unchanged.
