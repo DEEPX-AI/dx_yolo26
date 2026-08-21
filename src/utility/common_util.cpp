@@ -262,3 +262,10 @@ std::string get_voc_class_name(const int class_id) {
 
 }  // namespace common
 }  // namespace dxapp
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <tuple>
+#include <vector>

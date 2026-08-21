@@ -9,6 +9,7 @@
 #define SIMPLE_RESIZE_PREPROCESSOR_HPP
 
 #include <array>
+#include <algorithm>
 
 #include "common/base/i_processor.hpp"
 

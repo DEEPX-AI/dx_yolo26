@@ -43,6 +43,10 @@ static constexpr const char* DXAPP_RESET  = "\033[0m";
 #define LOG_ERROR(msg) std::cerr << DXAPP_RED << "[DXAPP] [ERROR] " << msg << DXAPP_RESET << std::endl
 
 #include <stdexcept>
+#include <cstddef>
+#include <cstdint>
+#include <tuple>
+#include <utility>
 
 namespace dxapp {
 

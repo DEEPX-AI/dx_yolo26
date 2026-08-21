@@ -18,6 +18,11 @@
 #include <opencv2/opencv.hpp>
 #include <tuple>
 #include <vector>
+#include <algorithm>
+#include <cstddef>
+#include <string>
+#include <thread>
+#include <utility>
 
 #include "common/base/i_factory.hpp"
 #include "common/utility/common_util.hpp"

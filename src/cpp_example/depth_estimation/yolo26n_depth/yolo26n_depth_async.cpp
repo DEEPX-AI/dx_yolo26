@@ -3,6 +3,8 @@
  * @brief Yolo26nDepthFactory asynchronous depth estimation example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_depth_factory.hpp"
 #include "common/runner/async_depth_runner.hpp"
 

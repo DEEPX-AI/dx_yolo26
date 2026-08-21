@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <dxrt/dxrt_api.h>
+#include <cstddef>
 
 /**
  * @brief Dedicated exception for postprocessing configuration errors.

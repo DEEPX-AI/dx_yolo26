@@ -6,6 +6,10 @@
 #ifndef SEGMENTATION_VISUALIZER_HPP
 #define SEGMENTATION_VISUALIZER_HPP
 
+#include <algorithm>
+#include <cstddef>
+#include <string>
+#include <vector>
 #include "common/base/i_visualizer.hpp"
 #include "common/trackers/iou_tracker.hpp"
 

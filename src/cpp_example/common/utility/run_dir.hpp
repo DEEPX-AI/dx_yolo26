@@ -31,6 +31,8 @@
 #include <vector>
 
 #include <dxrt/dxrt_api.h>
+#include <cstddef>
+#include <cstdio>
 
 namespace dxapp {
 #if __cplusplus >= 201703L || (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L)

@@ -21,6 +21,8 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <cstddef>
+#include <iterator>
 
 namespace dxapp {
 

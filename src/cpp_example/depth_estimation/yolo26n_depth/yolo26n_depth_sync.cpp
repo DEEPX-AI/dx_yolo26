@@ -3,6 +3,8 @@
  * @brief Yolo26nDepthFactory synchronous inference example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_depth_factory.hpp"
 #include "common/runner/sync_depth_runner.hpp"
 

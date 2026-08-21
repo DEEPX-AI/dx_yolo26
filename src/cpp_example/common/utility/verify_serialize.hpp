@@ -29,6 +29,7 @@ namespace fs = std::experimental::filesystem;
 #endif
 
 #include <opencv2/opencv.hpp>
+#include <tuple>
 #include "common/third_party/nlohmann_json.hpp"
 #include "common/base/i_processor.hpp"
 

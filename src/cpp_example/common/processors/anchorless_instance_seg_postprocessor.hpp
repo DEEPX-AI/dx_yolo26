@@ -218,6 +218,9 @@ class YOLOv8SegPostProcess {
 #include <iterator>
 #include <map>
 #include <sstream>
+#include <cstddef>
+#include <stdexcept>
+#include <utility>
 
 #include "common_util.hpp"
 

@@ -11,6 +11,8 @@
 #include "common/base/i_processor.hpp"
 #include <algorithm>
 #include <cmath>
+#include <string>
+#include <vector>
 
 namespace dxapp {
 

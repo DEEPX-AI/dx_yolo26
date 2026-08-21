@@ -14,6 +14,8 @@
 #include <algorithm>
 #include <numeric>
 #include <vector>
+#include <cstdint>
+#include <string>
 
 namespace dxapp {
 

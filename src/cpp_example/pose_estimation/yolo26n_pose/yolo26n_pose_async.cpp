@@ -3,6 +3,8 @@
  * @brief Yolo26n_pose asynchronous inference example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_pose_factory.hpp"
 #include "common/runner/async_pose_runner.hpp"
 

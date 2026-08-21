@@ -22,6 +22,11 @@
 #include <sstream>
 #include <tuple>
 #include <vector>
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <utility>
 
 #include "common/base/i_factory.hpp"
 #include "common/config/model_config.hpp"

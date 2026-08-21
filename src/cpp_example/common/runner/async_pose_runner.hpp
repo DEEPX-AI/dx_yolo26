@@ -22,6 +22,12 @@
 #include <queue>
 #include <thread>
 #include <vector>
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <tuple>
+#include <utility>
 
 #include "common/base/i_factory.hpp"
 #include "common/utility/common_util.hpp"

@@ -3,6 +3,8 @@
  * @brief Yolo26n synchronous inference example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_factory.hpp"
 #include "common/runner/sync_detection_runner.hpp"
 

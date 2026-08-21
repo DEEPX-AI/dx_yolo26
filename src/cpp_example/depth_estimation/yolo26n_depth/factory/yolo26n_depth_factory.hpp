@@ -10,6 +10,8 @@
 #ifndef YOLO26N_DEPTH_FACTORY_HPP
 #define YOLO26N_DEPTH_FACTORY_HPP
 
+#include <memory>
+#include <string>
 #include "common/base/i_factory.hpp"
 #include "common/processors/simple_resize_preprocessor.hpp"
 #include "common/processors/depth_postprocessor.hpp"

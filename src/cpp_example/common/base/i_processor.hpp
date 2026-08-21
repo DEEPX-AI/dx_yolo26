@@ -21,6 +21,8 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <algorithm>
+#include <utility>
 
 namespace dxapp {
 

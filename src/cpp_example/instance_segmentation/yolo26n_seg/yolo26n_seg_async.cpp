@@ -3,6 +3,8 @@
  * @brief YOLOv8Seg asynchronous instance segmentation example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_seg_factory.hpp"
 #include "common/runner/async_segmentation_runner.hpp"
 

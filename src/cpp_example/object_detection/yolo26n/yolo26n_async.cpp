@@ -3,6 +3,8 @@
  * @brief Yolo26n asynchronous inference example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_factory.hpp"
 #include "common/runner/async_detection_runner.hpp"
 

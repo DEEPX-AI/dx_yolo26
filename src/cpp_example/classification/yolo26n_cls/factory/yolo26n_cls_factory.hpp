@@ -6,6 +6,8 @@
 #ifndef YOLO26N_CLS_FACTORY_HPP
 #define YOLO26N_CLS_FACTORY_HPP
 
+#include <memory>
+#include <string>
 #include "common/base/i_factory.hpp"
 #include "common/processors/letterbox_preprocessor.hpp"
 #include "common/processors/classification_postprocessor.hpp"

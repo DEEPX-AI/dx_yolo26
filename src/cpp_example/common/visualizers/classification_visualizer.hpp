@@ -6,6 +6,12 @@
 #ifndef CLASSIFICATION_VISUALIZER_HPP
 #define CLASSIFICATION_VISUALIZER_HPP
 
+#include <algorithm>
+#include <cstddef>
+#include <iomanip>
+#include <sstream>
+#include <string>
+#include <vector>
 #include "common/base/i_visualizer.hpp"
 #include "common/utility/labels.hpp"
 

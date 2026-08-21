@@ -9,6 +9,8 @@
 #ifndef RESULT_CONVERTERS_HPP
 #define RESULT_CONVERTERS_HPP
 
+#include <algorithm>
+#include <vector>
 #include "common/base/i_processor.hpp"
 
 // Merged postprocess headers

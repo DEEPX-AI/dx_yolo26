@@ -3,6 +3,8 @@
  * @brief Yolo26n_cls synchronous classification example using SyncClassificationRunner
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_cls_factory.hpp"
 #include "common/runner/sync_classification_runner.hpp"
 

@@ -10,6 +10,8 @@
 #ifndef YOLO_DETECTION_POSTPROCESSOR_HPP
 #define YOLO_DETECTION_POSTPROCESSOR_HPP
 
+#include <string>
+#include <vector>
 #include "common/base/i_processor.hpp"
 #include "common/processors/result_converters.hpp"
 

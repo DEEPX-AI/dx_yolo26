@@ -8,6 +8,8 @@
 
 #include <opencv2/opencv.hpp>
 #include <vector>
+#include <algorithm>
+#include <utility>
 
 #include "../base/i_processor.hpp"
 

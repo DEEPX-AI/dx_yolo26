@@ -3,6 +3,8 @@
  * @brief Yolo26n_cls asynchronous classification example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_cls_factory.hpp"
 #include "common/runner/async_classification_runner.hpp"
 

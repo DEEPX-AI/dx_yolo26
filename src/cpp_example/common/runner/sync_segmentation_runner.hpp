@@ -18,6 +18,9 @@
 #include <memory>
 #include <opencv2/opencv.hpp>
 #include <vector>
+#include <algorithm>
+#include <string>
+#include <utility>
 
 #include "common/base/i_factory.hpp"
 #include "common/utility/common_util.hpp"

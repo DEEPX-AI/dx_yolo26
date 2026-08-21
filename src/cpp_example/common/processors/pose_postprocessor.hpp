@@ -9,6 +9,10 @@
 #ifndef POSE_POSTPROCESSOR_HPP
 #define POSE_POSTPROCESSOR_HPP
 
+#include <algorithm>
+#include <string>
+#include <utility>
+#include <vector>
 #include "common/base/i_processor.hpp"
 #include "common/processors/result_converters.hpp"
 

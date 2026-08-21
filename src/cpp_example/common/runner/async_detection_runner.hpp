@@ -23,6 +23,13 @@
 #include <set>
 #include <thread>
 #include <vector>
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <cstring>
+#include <functional>
+#include <string>
+#include <utility>
 
 #include "common/base/i_factory.hpp"
 #include "common/config/model_config.hpp"

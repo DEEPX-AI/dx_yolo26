@@ -6,6 +6,9 @@
 #ifndef YOLO26N_FACTORY_HPP
 #define YOLO26N_FACTORY_HPP
 
+#include <memory>
+#include <string>
+#include <vector>
 #include "common/base/i_factory.hpp"
 #include "common/processors/letterbox_preprocessor.hpp"
 #include "common/processors/yolo_detection_postprocessor.hpp"

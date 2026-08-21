@@ -6,6 +6,11 @@
 #ifndef POSE_VISUALIZER_HPP
 #define POSE_VISUALIZER_HPP
 
+#include <algorithm>
+#include <cstddef>
+#include <string>
+#include <utility>
+#include <vector>
 #include "common/base/i_visualizer.hpp"
 
 namespace dxapp {

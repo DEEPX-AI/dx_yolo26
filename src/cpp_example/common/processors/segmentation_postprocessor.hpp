@@ -16,6 +16,11 @@
 #include "common_util.hpp"
 
 #include <set>
+#include <algorithm>
+#include <cstddef>
+#include <string>
+#include <utility>
+#include <vector>
 
 // Postprocess headers
 #include "anchorless_instance_seg_postprocessor.hpp"

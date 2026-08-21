@@ -3,6 +3,8 @@
  * @brief Yolo26n_seg synchronous instance segmentation example
  */
 
+#include <memory>
+#include <utility>
 #include "factory/yolo26n_seg_factory.hpp"
 #include "common/runner/sync_segmentation_runner.hpp"
 

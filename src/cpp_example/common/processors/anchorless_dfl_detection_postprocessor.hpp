@@ -22,6 +22,9 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <cstddef>
+#include <stdexcept>
+#include <utility>
 
 #include "common_util.hpp"
 #include "postprocess_utils.hpp"

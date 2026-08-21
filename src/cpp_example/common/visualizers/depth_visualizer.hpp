@@ -6,6 +6,7 @@
 #ifndef DEPTH_VISUALIZER_HPP
 #define DEPTH_VISUALIZER_HPP
 
+#include <vector>
 #include "common/base/i_visualizer.hpp"
 
 namespace dxapp {
