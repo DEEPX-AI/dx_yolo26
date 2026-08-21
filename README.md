@@ -90,12 +90,15 @@ them from [DX-ModelZoo](https://developer.deepx.ai/modelzoo/).
 `meta-deepx-m1` packages this repository as `dx-yolo26`:
 
 ```
-IMAGE_INSTALL:append = " dx-yolo26 dx-yolo26-samples"
+IMAGE_INSTALL:append = " dx-yolo26 dx-yolo26-sample"
 ```
 
-`dx-yolo26` holds the applications with their postprocess parameters,
-`dx-yolo26-samples` the sample images. The recipe builds the async
-variants only and passes `-DDXYOLO26_DATA_DIR=${datadir}/dx_yolo26`.
+`dx-yolo26` holds the applications with their postprocess parameters;
+`dx-yolo26-sample` is a separate recipe carrying the asset bundle (models, video
+clips and sample images) under `/usr/share/dx-yolo26-sample`, which is where an
+application runs with no arguments. The recipe builds the async variants only,
+passes `-DDXYOLO26_DATA_DIR=${datadir}/dx_yolo26`, and leaves the in-tree sample
+images out (`-DDXYOLO26_INSTALL_SAMPLES=OFF`) so they are not shipped twice.
 
 ## Adding another YOLO26 variant
 
