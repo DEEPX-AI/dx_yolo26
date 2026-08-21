@@ -10,13 +10,6 @@
 
 #include <dxrt/dxrt_api.h>
 #include <opencv2/opencv.hpp>
-#if defined(__has_include)
-#if __has_include(<opencv2/dnn.hpp>)
-#include <opencv2/dnn.hpp>
-#elif __has_include(<opencv2/dnn/dnn.hpp>)
-#include <opencv2/dnn/dnn.hpp>
-#endif
-#endif
 #include <cmath>
 #include <vector>
 #include <memory>

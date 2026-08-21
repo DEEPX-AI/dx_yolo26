@@ -14,6 +14,7 @@
 #include <utility>
 #include <vector>
 #include "common/base/i_processor.hpp"
+#include "common/processors/postprocess_utils.hpp"
 #include "common/processors/result_converters.hpp"
 
 // Postprocess headers
@@ -136,7 +137,8 @@ public:
 
         // NMS
         std::vector<int> keep;
-        cv::dnn::NMSBoxes(nms_boxes, nms_scores, score_threshold_, nms_threshold_, keep);
+        keep = postprocess_utils::nms_indices(nms_boxes, nms_scores,
+                                              score_threshold_, nms_threshold_);
 
         for (int k : keep) {
             int i = nms_indices[k];

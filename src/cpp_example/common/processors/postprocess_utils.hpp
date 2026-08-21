@@ -10,7 +10,7 @@
  *   - Legacy postprocessors (own Result structs with iou() method):
  *       use postprocess_utils::apply_nms<T>(dets, threshold)
  *   - v3-native postprocessors (working with cv::Rect arrays):
- *       use cv::dnn::NMSBoxes(boxes, scores, score_thr, nms_thr, indices)
+ *       use postprocess_utils::nms_indices(boxes, scores, score_thr, nms_thr)
  *   Both implement the same greedy NMS algorithm.
  */
 #ifndef POSTPROCESS_UTILS_HPP
@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <dxrt/dxrt_api.h>
+#include <opencv2/core.hpp>
 #include <cstddef>
 
 /**
@@ -139,6 +140,43 @@ std::vector<T> apply_nms(const std::vector<T>& dets, float threshold) {
     }
 
     return result;
+}
+
+// ============================================================================
+// Index-based Non-Maximum Suppression over parallel box/score arrays.
+//
+// Same greedy algorithm and the same selection rules as cv::dnn::NMSBoxes
+// (score strictly above score_threshold, stable sort by descending score,
+// suppress when IoU strictly above nms_threshold), implemented here so the
+// applications do not need the OpenCV dnn module - Yocto/embedded OpenCV
+// builds routinely ship without it.
+// ============================================================================
+inline std::vector<int> nms_indices(const std::vector<cv::Rect>& boxes,
+                                   const std::vector<float>& scores,
+                                   float score_threshold,
+                                   float nms_threshold) {
+    std::vector<int> order;
+    order.reserve(scores.size());
+    for (size_t i = 0; i < scores.size(); ++i) {
+        if (scores[i] > score_threshold) order.push_back(static_cast<int>(i));
+    }
+    std::stable_sort(order.begin(), order.end(),
+                     [&scores](int a, int b) { return scores[a] > scores[b]; });
+
+    std::vector<int> keep;
+    for (int idx : order) {
+        bool suppressed = false;
+        for (int kept : keep) {
+            const float inter = static_cast<float>((boxes[idx] & boxes[kept]).area());
+            const float uni = static_cast<float>(boxes[idx].area() + boxes[kept].area()) - inter;
+            if (uni > 0.0f && inter / uni > nms_threshold) {
+                suppressed = true;
+                break;
+            }
+        }
+        if (!suppressed) keep.push_back(idx);
+    }
+    return keep;
 }
 
 }  // namespace postprocess_utils
