@@ -42,7 +42,18 @@ namespace dxapp {
 constexpr size_t SHOW_WINDOW_SIZE_W = 960;
 constexpr size_t SHOW_WINDOW_SIZE_H = 540;
 constexpr size_t ASYNC_BUFFER_SIZE = 40;
-constexpr size_t ASYNC_MAX_QUEUE_SIZE = 100;
+
+// Queue depth and pipeline depth are both memory multipliers: every queued item
+// and every in-flight job holds a clone of the *source* frame, so frame buffers
+// alone cost (display queue + rendered queue + pipeline depth) x frame size.
+// At the former 100/100/40 that is 240 frames -- ~1.5 GiB for 1080p and ~6 GiB
+// for 4K, and a 4K run measured a 3.8 GiB peak, well past what an M1 target has.
+// At 8/8/16 it is 32 frames: ~200 MiB for 1080p, ~800 MiB for 4K.
+constexpr size_t ASYNC_MAX_QUEUE_SIZE = 8;
+
+// Also keeps the pipeline depth below ASYNC_BUFFER_SIZE, so an input buffer is
+// never rewritten while the job that reads it is still in flight.
+constexpr size_t ASYNC_MAX_INFLIGHT = 16;
 
 // Command line arguments structure (duplicated from sync_runner for independent compilation)
 struct CommandLineArgs {
@@ -85,11 +96,10 @@ struct AsyncProfilingMetrics {
     std::mutex metrics_mutex;
     std::condition_variable inflight_cv;  // back-pressure signaling
 
-    // Max concurrent in-flight inferences (pipeline depth). Defaults to
-    // ASYNC_BUFFER_SIZE so existing runners are unchanged; a runner may lower it
+    // Max concurrent in-flight inferences (pipeline depth). A runner may lower it
     // (e.g. heavy instance-seg) to cut end-to-end display latency, since a deep
     // pipeline on a slow model shows frames seconds behind capture.
-    size_t max_inflight = ASYNC_BUFFER_SIZE;
+    size_t max_inflight = ASYNC_MAX_INFLIGHT;
 
     /** Block until inflight count drops below max_inflight. */
     void waitForSlot() {
