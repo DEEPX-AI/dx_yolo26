@@ -256,6 +256,7 @@ public:
                 metrics_.infer_last_ts = now;
                 metrics_.infer_completed++;
             }
+            metrics_.notifySlot();
 
             AsyncClassificationDisplayArgs display_args;
             display_args.original_frame = std::make_shared<cv::Mat>(ud->display_frame);
@@ -295,6 +296,8 @@ public:
             }
             auto user_data_ptr = std::make_unique<AsyncUserData>(AsyncUserData{display_image.clone(), ctx, std::string()});
             void* user_data = user_data_ptr.release();
+            // Back-pressure: wait for available slot
+            metrics_.waitForSlot();
             {
                 std::lock_guard<std::mutex> lock(metrics_.metrics_mutex);
                 auto now = std::chrono::high_resolution_clock::now();
@@ -344,6 +347,8 @@ public:
                     save_path = dxapp::buildPerImageSavePath(run_dir, factory_->getModelName() + "_async", imageFiles[i % imageFiles.size()], i);
                 }
                 auto ud = std::make_unique<AsyncUserData>(AsyncUserData{display_image.clone(), ctx, std::move(save_path)});
+                // Back-pressure: wait for available slot
+                metrics_.waitForSlot();
                 {
                     std::lock_guard<std::mutex> lock(metrics_.metrics_mutex);
                     auto now = std::chrono::high_resolution_clock::now();
