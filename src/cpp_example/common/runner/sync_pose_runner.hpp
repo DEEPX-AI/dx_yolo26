@@ -135,8 +135,6 @@ public:
                 source_info = "RTSP URL: " + args.rtspUrl;
             } else {
                 source_info = "Video file: " + args.videoFile;
-                std::cout << "loopTest is set to 1 when a video file is provided." << std::endl;
-                loopTest = 1;
             }
 
             if (args.verbose) {
