@@ -2,7 +2,7 @@
  * @file yolo26n_seg_preopt_factory.hpp
  * @brief Yolo26n_seg pre-optimized (top-k in the model) Abstract Factory implementation
  *
- * For pre_optimized_yolo26n-seg-1.dxnn: the model emits the 300 best rows with
+ * For pre_optimized_yolo26n-seg.dxnn: the model emits the 300 best rows with
  * the box, the score, the class and the 32 mask coefficients, plus the mask
  * prototypes (output1), see common/processors/preopt_topk_postprocessor.hpp.
  */
@@ -56,7 +56,7 @@ public:
     std::string getModelName() const override { return "Yolo26n_seg_preopt"; }
     std::string getTaskType() const override { return "instance_segmentation"; }
     std::string getDefaultModel() const override {
-        return "assets/models/pre_optimized_yolo26n-seg-1.dxnn";
+        return "assets/models/pre_optimized_yolo26n-seg.dxnn";
     }
 
 private:

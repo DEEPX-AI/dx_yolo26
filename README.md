@@ -12,9 +12,9 @@ applications - no shared library is produced.
 | `yolo26n_pose` | Pose estimation | `src/cpp_example/pose_estimation/yolo26n_pose` | `yolo26-n-pose_640x640.dxnn` |
 | `yolo26n_seg` | Instance segmentation | `src/cpp_example/instance_segmentation/yolo26n_seg` | `yolo26-n-seg_640x640.dxnn` |
 | `yolo26n_depth` | Depth estimation | `src/cpp_example/depth_estimation/yolo26n_depth` | `yolo26-depth-n_768x768.dxnn` |
-| `yolo26n_preopt` | Object detection, pre-optimized model | `src/cpp_example/object_detection/yolo26n_preopt` | `yolo26-n_optimized.dxnn` |
-| `yolo26n_pose_preopt` | Pose estimation, pre-optimized model | `src/cpp_example/pose_estimation/yolo26n_pose_preopt` | `pre_optimized_yolo26n-pose-1.dxnn` |
-| `yolo26n_seg_preopt` | Instance segmentation, pre-optimized model | `src/cpp_example/instance_segmentation/yolo26n_seg_preopt` | `pre_optimized_yolo26n-seg-1.dxnn` |
+| `yolo26n_preopt` | Object detection, pre-optimized model | `src/cpp_example/object_detection/yolo26n_preopt` | `pre_optimized_yolo26-n-od.dxnn` |
+| `yolo26n_pose_preopt` | Pose estimation, pre-optimized model | `src/cpp_example/pose_estimation/yolo26n_pose_preopt` | `pre_optimized_yolo26n-pose.dxnn` |
+| `yolo26n_seg_preopt` | Instance segmentation, pre-optimized model | `src/cpp_example/instance_segmentation/yolo26n_seg_preopt` | `pre_optimized_yolo26n-seg.dxnn` |
 
 Each application is built in two runner variants: `<name>_sync` and `<name>_async`.
 
@@ -83,7 +83,8 @@ them from [DX-ModelZoo](https://developer.deepx.ai/modelzoo/).
 
 ## Pre-optimized models
 
-A *pre-optimized* `.dxnn` (`yolo26-n_optimized.dxnn`, `pre_optimized_yolo26n-*.dxnn`)
+A *pre-optimized* `.dxnn` (`pre_optimized_yolo26-n-od.dxnn`, `pre_optimized_yolo26n-pose.dxnn`,
+`pre_optimized_yolo26n-seg.dxnn`)
 carries the tail of the YOLO26 end-to-end head inside the model. The NPU already
 applies the DFL integration, and a CPU task - run by DXRT through ONNX Runtime -
 applies sigmoid to the class logits, keeps the **top-k = 300** anchors by their best
@@ -93,9 +94,9 @@ table sorted by score, in model-input (letterboxed) pixel coordinates:
 
 | Model | Output | Row layout |
 | :--- | :--- | :--- |
-| `yolo26-n_optimized.dxnn` | `preopt_output [1, 300, 6]` | `x1 y1 x2 y2 score class_id` |
-| `pre_optimized_yolo26n-pose-1.dxnn` | `preopt_output [1, 300, 57]` | `x1 y1 x2 y2 score class_id` + 17 x `kx ky visibility` |
-| `pre_optimized_yolo26n-seg-1.dxnn` | `preopt_output [1, 300, 38]`, `output1 [1, 32, 160, 160]` | `x1 y1 x2 y2 score class_id` + 32 mask coefficients; `output1` holds the mask prototypes |
+| `pre_optimized_yolo26-n-od.dxnn` | `preopt_output [1, 300, 6]` | `x1 y1 x2 y2 score class_id` |
+| `pre_optimized_yolo26n-pose.dxnn` | `preopt_output [1, 300, 57]` | `x1 y1 x2 y2 score class_id` + 17 x `kx ky visibility` |
+| `pre_optimized_yolo26n-seg.dxnn` | `preopt_output [1, 300, 38]`, `output1 [1, 32, 160, 160]` | `x1 y1 x2 y2 score class_id` + 32 mask coefficients; `output1` holds the mask prototypes |
 
 The `*_preopt` applications therefore only filter the rows by `score_threshold`, map
 the coordinates back to the source image and, for segmentation, multiply the mask
@@ -117,9 +118,9 @@ Two details of this scheme are worth knowing:
   produces the identical rows, so the applications behave the same either way.
 
 ```bash
-yolo26n_preopt_sync      -m models/yolo26-n_optimized.dxnn
-yolo26n_pose_preopt_sync -m models/pre_optimized_yolo26n-pose-1.dxnn -i sample/img/sample_people.jpg
-yolo26n_seg_preopt_async -m models/pre_optimized_yolo26n-seg-1.dxnn -v input.mp4 \
+yolo26n_preopt_sync      -m assets/models/pre_optimized_yolo26-n-od.dxnn
+yolo26n_pose_preopt_sync -m assets/models/pre_optimized_yolo26n-pose.dxnn -i sample/img/sample_people.jpg
+yolo26n_seg_preopt_async -m assets/models/pre_optimized_yolo26n-seg.dxnn -v input.mp4 \
     --config src/cpp_example/instance_segmentation/yolo26n_seg_preopt/config.json
 ```
 

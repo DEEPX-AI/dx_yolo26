@@ -2,7 +2,7 @@
  * @file yolo26n_preopt_factory.hpp
  * @brief Yolo26n pre-optimized (top-k in the model) Abstract Factory implementation
  *
- * For yolo26-n_optimized.dxnn: the model emits the 300 best (anchor, class)
+ * For pre_optimized_yolo26-n-od.dxnn: the model emits the 300 best (anchor, class)
  * rows already decoded, see common/processors/preopt_topk_postprocessor.hpp.
  */
 
@@ -57,7 +57,7 @@ public:
     std::string getModelName() const override { return "Yolo26n_preopt"; }
     std::string getTaskType() const override { return "object_detection"; }
     std::string getDefaultModel() const override {
-        return "assets/models/yolo26-n_optimized.dxnn";
+        return "assets/models/pre_optimized_yolo26-n-od.dxnn";
     }
 
 private:

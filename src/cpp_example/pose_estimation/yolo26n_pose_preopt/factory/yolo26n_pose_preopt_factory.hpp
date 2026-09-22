@@ -2,7 +2,7 @@
  * @file yolo26n_pose_preopt_factory.hpp
  * @brief Yolo26n_pose pre-optimized (top-k in the model) Abstract Factory implementation
  *
- * For pre_optimized_yolo26n-pose-1.dxnn: the model emits the 300 best rows
+ * For pre_optimized_yolo26n-pose.dxnn: the model emits the 300 best rows
  * with the box, the score and the 17 decoded keypoints, see
  * common/processors/preopt_topk_postprocessor.hpp.
  */
@@ -54,7 +54,7 @@ public:
     std::string getModelName() const override { return "Yolo26n_pose_preopt"; }
     std::string getTaskType() const override { return "pose_estimation"; }
     std::string getDefaultModel() const override {
-        return "assets/models/pre_optimized_yolo26n-pose-1.dxnn";
+        return "assets/models/pre_optimized_yolo26n-pose.dxnn";
     }
 
 private:
