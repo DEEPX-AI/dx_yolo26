@@ -101,7 +101,10 @@ table sorted by score, in model-input (letterboxed) pixel coordinates:
 The `*_preopt` applications therefore only filter the rows by `score_threshold`, map
 the coordinates back to the source image and, for segmentation, multiply the mask
 coefficients with the prototypes over the box region. All three share
-`src/cpp_example/common/processors/preopt_topk_postprocessor.hpp`.
+`src/cpp_example/common/processors/preopt_topk_postprocessor.hpp`. On a single
+stream this roughly halves the per-frame latency of detection and pose compared with
+the regular models (about 16 ms instead of 28 ms and 23 ms at 640x640 on an M1); with
+all NPU cores busy the throughput is about the same, segmentation gaining some 20%.
 
 Two details of this scheme are worth knowing:
 
@@ -146,6 +149,14 @@ clips and sample images) under `/etc/dx-yolo26-sample`, which is where an
 application runs with no arguments. The recipe builds the async variants only,
 passes `-DDXYOLO26_DATA_DIR=${datadir}/dx_yolo26`, and leaves the in-tree sample
 images out (`-DDXYOLO26_INSTALL_SAMPLES=OFF`) so they are not shipped twice.
+
+Since 0.2.0 the bundle carries the pre-optimized models for object detection, pose
+estimation and instance segmentation (see [Pre-optimized models](#pre-optimized-models)),
+so on a target it is `yolo26n_preopt_async`, `yolo26n_pose_preopt_async` and
+`yolo26n_seg_preopt_async` that run with no arguments, and `run.sh 0/2/3` starts
+them. `yolo26n_async`, `yolo26n_pose_async` and `yolo26n_seg_async` are installed as
+well but need a model passed with `-m`. Classification and depth estimation are
+unchanged.
 
 ## Adding another YOLO26 variant
 
